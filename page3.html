@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    /*=============== GOOGLE FONTS ===============*/
+    
+    @import url("https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600&display=swap");
+    /*=============== VARIABLES CSS ===============*/
+    
+     :root {
+        --header-height: 3.5rem;
+        /*========== Colors ==========*/
+        --hue: 255;
+        --first-color: hsl(var(--hue), 90%, 60%);
+        --first-color-alt: hsl(var(--hue), 82%, 56%);
+        --first-color-light: hsl(var(--hue), 40%, 80%);
+        --title-color: hsl(var(--hue), 24%, 16%);
+        --text-color: hsl(var(--hue), 8%, 45%);
+        --text-color-light: hsl(var(--hue), 8%, 60%);
+        --white-color: hsl(0, 0%, 100%);
+        --body-color: hsl(0, 0%, 100%);
+        --container-color: hsl(0, 0%, 100%);
+        --shadow-color: hsla(var(--hue), 90%, 30%, 0.1);
+        /*========== Font and typography ==========*/
+        /*.5rem = 8px | 1rem = 16px ...*/
+        --body-font: "Syne", sans-serif;
+        --biggest-font-size: 2rem;
+        --h1-font-size: 1.5rem;
+        --h2-font-size: 1.25rem;
+        --h3-font-size: 1rem;
+        --normal-font-size: 0.938rem;
+        --small-font-size: 0.813rem;
+        --smaller-font-size: 0.75rem;
+        /*========== Font weight ==========*/
+        --font-regular: 400;
+        --font-medium: 500;
+        --font-semi-bold: 600;
+        /*========== z index ==========*/
+        --z-tooltip: 10;
+        --z-fixed: 100;
+        --z-modal: 1000;
+    }
+    /*========== Responsive typography ==========*/
+    
+    @media screen and (min-width: 1150px) {
+         :root {
+            --biggest-font-size: 4.5rem;
+            --h1-font-size: 2.25rem;
+            --h2-font-size: 1.5rem;
+            --h3-font-size: 1.25rem;
+            --normal-font-size: 1.125rem;
+            --small-font-size: 0.875rem;
+            --smaller-font-size: 0.813rem;
+        }
+    }
+    /*=============== BASE ===============*/
+    
+    * {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+    }
+    
+    html {
+        scroll-behavior: smooth;
+    }
+    
+    body,
+    input,
+    textarea,
+    button {
+        font-family: var(--body-font);
+        font-size: var(--normal-font-size);
+    }
+    
+    body {
+        background-color: var(--body-color);
+        color: var(--text-color);
+        transition: background-color 0.4s;
+    }
+    
+    input,
+    button,
+    textarea {
+        border: none;
+        outline: none;
+    }
+    
+    h1,
+    h2,
+    h3,
+    h4 {
+        color: var(--title-color);
+        font-weight: var(--font-semi-bold);
+    }
+    
+    ul {
+        list-style: none;
+    }
+    
+    a {
+        text-decoration: none;
+    }
+    
+    img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+    }
+    /*=============== THEME ===============*/
+    
+    .nav__actions {
+        display: flex;
+        align-items: center;
+        column-gap: 1rem;
+    }
+    /*=============== REUSABLE CSS CLASSES ===============*/
+    
+    .container {
+        max-width: 1120px;
+        margin-inline: 1.5rem;
+    }
+    
+    .grid {
+        display: grid;
+        gap: 1.5rem;
+    }
+    
+    .section {
+        padding-block: 5rem 1rem;
+    }
+    
+    .section__title {
+        font-size: var(--h1-font-size);
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+    
+    .perfil {
+        width: 250px;
+        height: 250px;
+        background-color: var(--body-color);
+        border: 8px solid var(--first-color);
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        transition: background-color 0.4s;
+    }
+    
+    .perfil__content {
+        width: 180px;
+        height: 180px;
+        border: 10px solid var(--first-color);
+        border-radius: 50%;
+        overflow: hidden;
+        justify-content: center;
+        align-items: flex-end;
+        background: linear-gradient( 180deg, hsl(var(--hue), 90%, 80%), hsl(var(--hue), 90%, 30%));
+    }
+    
+    .perfil__img {
+        width: 169px;
+        height: 160px;
+        position: relative;
+        top: 0px;
+    }
+    
+    .main {
+        overflow: hidden;
+    }
+    /*=============== BUTTON ===============*/
+    
+    .button {
+        display: inline-flex;
+        justify-content: center;
+        background-color: var(--first-color);
+        color: var(--white-color);
+        font-weight: var(--font-semi-bold);
+        padding: 1rem 2rem;
+        border-radius: 0.5rem;
+        transition: background-color 0.4s, box-shadow 0.4s;
+    }
+    
+    .button:hover {
+        background-color: var(--first-color-alt);
+        box-shadow: 0 8px 24px hsla(var(--hue), 90%, 30%, 0.3);
+    }
+    /*=============== ABOUT ===============*/
+    
+    .about__page {
+        padding-bottom: 4rem;
+    }
+    
+    .about__perfil {
+        justify-self: center;
+    }
+    
+    .about__content {
+        row-gap: 4rem;
+    }
+    
+    .about__info {
+        row-gap: 0.75rem;
+        text-align: center;
+    }
+    
+    .about__name {
+        font-size: var(--h1-font-size);
+    }
+    
+    .about__profession {
+        font-size: var(--h2-font-size);
+    }
+    
+    .about__description b {
+        color: var(--first-color);
+    }
+    
+    .about__button {
+        justify-self: center;
+    }
+    
+    .about__skills-title {
+        font-size: var(--h3-font-size);
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+    
+    .about__skills-img {
+        position: relative;
+        width: 35px;
+        transition: transform 0.4s;
+    }
+    
+    .about__skills-img:hover {
+        transform: translateY(-0.5rem);
+    }
+    
+    .about__skills-hover-text {
+        position: absolute;
+        font-size: var(--small-font-size);
+        color: var(--text-color);
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    .about__skills-img:hover .about__skills-hover-text {
+        opacity: 1;
+    }
+    
+    .about__skills-img .about__skills-hover-text::after {
+        content: "";
+        display: block;
+        width: 0;
+        height: 2px;
+        background: var(--first-color);
+        transition: width 0.3s ease;
+        transition-delay: 0.3s;
+        /* Délai avant l'apparition du soulignement */
+    }
+    
+    .about__skills-img:hover .about__skills-hover-text::after {
+        width: 100%;
+    }
+    
+    .about__skills-content {
+        grid-template-columns: repeat(5, max-content);
+        justify-content: center;
+        align-items: center;
+        gap: 2rem 1.5rem;
+    }
+    /*=============== MEDIA QUERIES ===============*/
+    /* For small devices */
+    
+    @media screen and (max-width: 320px) {
+        .container {
+            margin-inline: 1rem;
+        }
+        .about__skills-content {
+            grid-template-columns: repeat(4, max-content);
+        }
+    }
+    /* For medium devices */
+    
+    @media screen and (min-width: 576px) {
+        .about__container {
+            grid-template-columns: 400px;
+            justify-content: center;
+        }
+    }
+    /* For large devices */
+    
+    @media screen and (min-width: 1150px) {
+        .container {
+            margin-inline: auto;
+        }
+        .section {
+            padding-block: 7rem 2rem;
+        }
+        .section__title {
+            margin-bottom: 3.5rem;
+        }
+        .perfil {
+            width: 500px;
+            height: 500px;
+            border-width: 10px;
+        }
+        .perfil__content {
+            width: 420px;
+            height: 420px;
+            border-width: 10px;
+        }
+        .perfil__img {
+            width: 599px;
+            height: 399px;
+            position: relative;
+            top: 50px;
+        }
+        .about__container {
+            grid-template-columns: 500px 440px;
+            align-items: center;
+            column-gap: 8rem;
+            padding-top: 2rem;
+        }
+        .about__data {
+            row-gap: 3.5rem;
+        }
+        .about__info {
+            text-align: initial;
+        }
+        .about__button {
+            justify-self: flex-start;
+        }
+        .about__skills-title {
+            text-align: initial;
+        }
+        .about__skills-content {
+            grid-template-columns: repeat(7, max-content);
+            justify-content: initial;
+        }
+        .about__skills-img {
+            width: 40px;
+        }
+    }
+</style>
+
+<body>
+    <!--=============== REMIXICONS ===============-->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+    <!--==================== ABOUT ====================-->
+    <section class="about section">
+        <h2 class="section__title">
+            My Personal <br> Information
+        </h2>
+
+        <div class="about__container about__page container grid">
+            <div class="about__perfil perfil">
+                <div class="perfil__content">
+                    <img src="https://c4.wallpaperflare.com/wallpaper/327/192/923/nissan-skyline-gt-r-nissan-skyline-gt-r-r34-car-vehicle-wallpaper-preview.jpg" alt="image" class="perfil__img">
+                </div>
+            </div>
+
+            <div class="about__content grid">
+                <div class="about__data grid">
+                    <div class="about__info grid">
+                        <h1 class="about__name">SRI RAM</h1>
+                        <h2 class="about__profession">Web & Visual Designer</h2>
+                        <p class="about__description">
+                            Passionate about creating <b>Web Pages</b> with
+                            <b>UI/UX User Interface</b>, I have years of experience and many clients are happy with the projects carried out.
+                        </p>
+                    </div>
+
+                    <a href="contact.html" class="about__button button">Contact Me</a>
+                </div>
+
+                <div class="about__skills">
+                    <h3 class="about__skills-title">My Skills Are</h3>
+
+                    <div class="about__skills-content grid">
+
+                        <div class="about__skills-img">
+                            <!-- HTML -->
+                            <img src="https://cdn.worldvectorlogo.com/logos/html-1.svg" alt="image HTML" class="about__skills-img">
+                            <p class="about__skills-hover-text">HTML</p>
+                        </div>
+
+                        <div class="about__skills-img">
+                            <!-- CSS -->
+                            <img src="https://cdn.worldvectorlogo.com/logos/css-3.svg" alt="image CSS" class="about__skills-img">
+                            <p class="about__skills-hover-text">CSS</p>
+                        </div>
+
+                        <div class="about__skills-img">
+                            <!-- JavaScript -->
+                            <img src="https://cdn.worldvectorlogo.com/logos/javascript-1.svg" alt="image JavaScript" class="about__skills-img">
+                            <p class="about__skills-hover-text">JavaScript</p>
+                        </div>
+
+
+
+
+                        <div class="about__skills-img">
+                            <!-- GitHub -->
+                            <img src="https://cdn.worldvectorlogo.com/logos/github-icon-1.svg" alt="image GitHub" class="about__skills-img">
+                            <p class="about__skills-hover-text">GitHub</p>
+                        </div>
+
+                        <div class="about__skills-img">
+                            <!-- CodePen -->
+                            <img src="https://cdn.worldvectorlogo.com/logos/codepen-icon.svg" alt="image CodePen" class="about__skills-img">
+                            <p class="about__skills-hover-text">CodePen</p>
+                        </div>
+
+                        <div class="about__skills-img">
+                            <!-- VSCode -->
+                            <img src="https://cdn.worldvectorlogo.com/logos/visual-studio-code-1.svg" alt="image VS Code" class="about__skills-img">
+                            <p class="about__skills-hover-text">VSCode</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+
+</html>
